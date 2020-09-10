@@ -4,18 +4,18 @@
 
 #include "../include/video.h"
 
-
-bool video::open_camera(){
-    this->cap.open(0);
-    if (!this->cap.isOpened()){
-        return false;
+video::video(){
+    cap.open(0); //open default camera
+    if (!cap.isOpened()){
+        throw std::invalid_argument("can not open device");
     }
-		
-    return true; 
 }
 
+video::~video(){
+    cap.release();
+}
 bool video::singleframe(){
-	this->cap >> this->frame; 
+	cap >> frame; 
 	if (frame.empty()){
 		cout << "can not get frame"<< std::endl;
         return false;
@@ -23,21 +23,29 @@ bool video::singleframe(){
     return true;
 }
 
-void video::close_camera(){
-	this->cap.release();
+void video::pipedframe(){
+    std::vector<uchar> buff;    
+    imencode(".jpg", frame, buff);
+    vector<uchar> :: iterator i;
+    for (i = buff.begin(); i != buff.end(); ++i)
+        std::cout << *i ;
+}
+
+void video::outputframe(){
+    while(1)
+	{
+        if (singleframe())
+		    pipedframe();
+		if (waitKey(30) >= 0) break;
+	}
 }
 
 void video::test(){
-    if(!this->open_camera()){
-        cout << "can not open camera"<< std::endl;
-        return;
-    }
     namedWindow("Video", 1);
     while(1)
 	{
-        if (this->singleframe())
-		    imshow("Video", this->frame);
+        if (singleframe())
+		    imshow("Video", frame);
 		if (waitKey(30) >= 0) break;
 	}
-    this->close_camera();
 }
