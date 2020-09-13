@@ -8,13 +8,16 @@
 using namespace cv;
 using namespace std;
 
-class focus : public video {
+class focus{
+    public:
+        video *v;
+        focus(video *stream);
+        ~focus();
+        double score;
+        void cal_score(int way);
     private:
         double tenengrad(Mat imageGrey);
         double laplacian(Mat imageGrey);
         double meanstd(Mat imageGrey);
-    public:
-        double score;
-        void cal_score(int way);
-        void test();       
+      
 };

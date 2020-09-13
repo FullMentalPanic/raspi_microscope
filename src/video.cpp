@@ -1,7 +1,3 @@
-#include <iostream>
-#include <string>
-#include <sstream>
-
 #include "../include/video.h"
 
 video::video(){

@@ -1,4 +1,3 @@
-#include <iostream>
 #include <string>
 #include <sstream>
 
@@ -51,3 +50,4 @@ void focus::cal_score(int way = 0){
             score = tenengrad(imageGrey);
     }
 }
+

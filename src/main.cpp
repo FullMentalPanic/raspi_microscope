@@ -3,24 +3,24 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <unistd.h>
+#include <thread>
+
 
 
 int main(int argc, const char** argv){
     video v;
     focus a(&v);
-    //if(!v.open_camera()){
-    //    cout << "can not open camera"<< std::endl;
-    //    return -1;
-    //}
-    namedWindow("Video", 1);
+
+    std::thread thrd(std::bind(&video::test,&v));
+    thrd.detach();
+    sleep(10);
     while(1)
 	{
-        if (v.singleframe())
-		    imshow("Video", v.frame);
-            a.cal_score(0);
-            cout << "score is "<< a.score<<std::endl;
-		if (waitKey(30) >= 0) break;
+        sleep(1);
+        a.cal_score(0);
+        cout << "score is "<< a.score<<std::endl;
+
 	}
-    //v.close_camera();
     return 0;
 }
