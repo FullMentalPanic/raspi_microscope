@@ -21,10 +21,13 @@ bool video::singleframe(){
 
 void video::pipedframe(){
     std::vector<uchar> buff;    
-    imencode(".jpg", frame, buff);
+    imencode(".jpeg", frame, buff);
     vector<uchar> :: iterator i;
-    for (i = buff.begin(); i != buff.end(); ++i)
+    for (i = buff.begin(); i != buff.end(); ++i){
         std::cout << *i ;
+    }
+    std::cout.flush();
+        
 }
 
 void video::outputframe(){
