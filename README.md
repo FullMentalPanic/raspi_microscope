@@ -14,3 +14,6 @@ use raspberry pi 3 build a microscope platform
 
 (4) copy pi system lib and prepare cmake on host. 
     refer https://solderspot.wordpress.com/2016/02/04/cross-compiling-for-raspberry-pi-part-ii/
+    
+2. C++ program to process img.
+3. Python program Web GUI interface
